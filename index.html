@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aravind Pappala — AI Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0d0d0c;
+    --paper: #f5f2ea;
+    --paper2: #ede9df;
+    --accent: #1a3a2a;
+    --gold: #c8a84b;
+    --gold-light: #e8d49a;
+    --muted: #6b6860;
+    --border: rgba(13,13,12,0.12);
+    --border2: rgba(13,13,12,0.06);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(245,242,234,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    transition: color 0.2s;
+    font-weight: 500;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    padding: 10rem 3rem 4rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .hero-name {
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.4rem;
+  }
+  .hero-name span {
+    display: block;
+    color: var(--accent);
+  }
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    color: var(--muted);
+    margin: 1.2rem 0 2.5rem;
+    font-weight: 300;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    padding: 0.85rem 2rem;
+    border: none;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: #0e2218; transform: translateY(-1px); }
+  .btn-outline {
+    color: var(--ink);
+    padding: 0.85rem 2rem;
+    border: 1px solid var(--border);
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+    background: transparent;
+  }
+  .btn-outline:hover { background: var(--paper2); }
+
+  .hero-right {
+    background: var(--accent);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200,168,75,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,168,75,0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .hero-initials {
+    font-size: 22vw;
+    font-weight: 800;
+    color: rgba(200,168,75,0.12);
+    letter-spacing: -0.06em;
+    user-select: none;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-badge {
+    position: absolute;
+    bottom: 3rem;
+    left: 3rem;
+    background: var(--gold);
+    color: var(--ink);
+    padding: 0.6rem 1.2rem;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+  }
+  .hero-status {
+    position: absolute;
+    top: 3rem;
+    right: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(200,168,75,0.8);
+    font-family: 'DM Mono', monospace;
+  }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 3rem; }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+  .section-heading {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  /* ABOUT */
+  .about { background: var(--paper2); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 5rem;
+    align-items: start;
+    max-width: 1100px;
+  }
+  .about-bio {
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: #3a3832;
+  }
+  .about-bio p + p { margin-top: 1.2rem; }
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .stat-box {
+    background: var(--paper2);
+    padding: 1.8rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 6px;
+    display: block;
+  }
+
+  /* EXPERIENCE */
+  .experience { max-width: 1100px; margin: 0 auto; }
+  .exp-timeline { position: relative; padding-left: 2px; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+    position: relative;
+  }
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: 199px;
+    top: 8px;
+    bottom: -4rem;
+    width: 1px;
+    background: var(--border);
+  }
+  .exp-item:last-child::before { display: none; }
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    padding-top: 4px;
+    text-align: right;
+    line-height: 1.6;
+  }
+  .exp-dot {
+    position: absolute;
+    left: 192px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    background: var(--paper);
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+  }
+  .exp-dot.current { background: var(--accent); }
+  .exp-content { padding-left: 2rem; }
+  .exp-company {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+    font-family: 'DM Mono', monospace;
+  }
+  .exp-role {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .exp-desc {
+    font-size: 0.95rem;
+    color: #3a3832;
+    line-height: 1.75;
+  }
+  .exp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 1.2rem;
+  }
+  .exp-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 4px 12px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* SKILLS */
+  .skills-section { background: var(--accent); color: #fff; }
+  .skills-section .section-label { color: var(--gold-light); }
+  .skills-section .section-label::after { background: rgba(255,255,255,0.1); }
+  .skills-section .section-heading { color: #fff; }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    max-width: 1100px;
+    margin-top: 3rem;
+  }
+  .skill-cat {
+    background: var(--accent);
+    padding: 2rem;
+  }
+  .skill-cat-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+  .skill-items { display: flex; flex-direction: column; gap: 12px; }
+  .skill-item { display: flex; flex-direction: column; gap: 6px; }
+  .skill-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f0ede4;
+  }
+  .skill-bar {
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .skill-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transform-origin: left;
+    animation: fillBar 1.2s ease-out forwards;
+    animation-play-state: paused;
+  }
+  .skill-fill.animated { animation-play-state: running; }
+  @keyframes fillBar {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  /* CERTS */
+  .certs-section { max-width: 1100px; }
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .cert-card {
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .cert-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold);
+  }
+  .cert-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--gold);
+  }
+  .cert-provider {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .cert-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+  .cert-badge {
+    display: inline-block;
+    background: var(--paper2);
+    border: 1px solid var(--border2);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 3px 10px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .cert-icon {
+    position: absolute;
+    top: 1.8rem;
+    right: 1.8rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .cert-icon.aws { background: #FF9900; color: #fff; font-weight: 700; font-size: 10px; font-family: 'DM Mono', monospace; letter-spacing: 0.04em; }
+  .cert-icon.oracle { background: #F80000; color: #fff; font-weight: 700; font-size: 10px; font-family: 'DM Mono', monospace; }
+  .cert-icon.azure { background: #0089D6; color: #fff; font-weight: 700; font-size: 10px; font-family: 'DM Mono', monospace; }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--ink);
+    color: #f5f2ea;
+    text-align: center;
+  }
+  .contact-section .section-label { color: var(--gold); justify-content: center; }
+  .contact-section .section-label::after { display: none; }
+  .contact-section .section-heading { color: #f5f2ea; }
+  .contact-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: rgba(245,242,234,0.5);
+    margin: 1rem 0 3rem;
+    font-weight: 300;
+  }
+  .contact-links {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.9rem 1.8rem;
+    border: 1px solid rgba(245,242,234,0.15);
+    color: rgba(245,242,234,0.8);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--gold); color: var(--gold); }
+  .footer-bar {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(245,242,234,0.08);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: rgba(245,242,234,0.3);
+    letter-spacing: 0.08em;
+  }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { min-height: 40vh; }
+    .hero-left { padding: 8rem 1.5rem 3rem; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid, .exp-item { grid-template-columns: 1fr; }
+    .exp-item::before { display: none; }
+    .exp-dot { display: none; }
+    .exp-date { text-align: left; }
+    .exp-content { padding-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">aravind.pappala — 2025</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-left">
+    <div class="hero-tag">AI Engineer &amp; LLM Specialist</div>
+    <h1 class="hero-name">
+      Aravind<span>Pappala</span>
+    </h1>
+    <p class="hero-title">Building intelligent systems at the intersection of cloud &amp; language models.</p>
+    <div class="hero-cta">
+      <a href="#experience" class="btn-primary">View Experience</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-grid-pattern"></div>
+    <div class="hero-initials">AP</div>
+    <div class="hero-status">
+      <span class="status-dot"></span>
+      Available for opportunities
+    </div>
+    <div class="hero-badge">Sr Analyst — Accenture</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div style="max-width:1100px; margin:0 auto;">
+    <div class="section-label">01 — About</div>
+    <div class="about-grid">
+      <div>
+        <h2 class="section-heading fade-up">Crafting the future with AI &amp; Cloud.</h2>
+      </div>
+      <div>
+        <div class="about-bio fade-up">
+          <p>I'm Aravind Pappala — an AI Engineer and Full Stack LLM Developer with a passion for building production-grade intelligent systems. With hands-on experience spanning academia and enterprise consulting, I bridge the gap between cutting-edge AI research and real-world deployment.</p>
+          <p>Currently at Accenture, I lead development of LLM-powered full-stack applications, driving AI transformation for enterprise clients. My expertise spans large language models, deep learning pipelines, and cloud-native deployments across AWS and Azure.</p>
+          <p>Previously, at Aditya University, I contributed to applied AI research and student-facing intelligent platforms — sharpening my instincts for building systems that truly scale.</p>
+        </div>
+        <div class="about-stats fade-up" style="margin-top: 2.5rem;">
+          <div class="stat-box">
+            <span class="stat-num">2+</span>
+            <span class="stat-label">Years in AI</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">3</span>
+            <span class="stat-label">Certifications</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">5+</span>
+            <span class="stat-label">Core Skills</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">2</span>
+            <span class="stat-label">Companies</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" style="padding: 6rem 3rem;">
+  <div class="experience">
+    <div class="section-label">02 — Experience</div>
+    <h2 class="section-heading fade-up">Where I've built &amp; grown.</h2>
+    <div class="exp-timeline" style="margin-top: 4rem;">
+
+      <!-- Accenture -->
+      <div class="exp-item fade-up">
+        <div class="exp-date">
+          Nov 18, 2025<br>— Present
+        </div>
+        <div class="exp-dot current"></div>
+        <div class="exp-content">
+          <div class="exp-company">Accenture</div>
+          <div class="exp-role">Full Stack LLM Development Sr Analyst</div>
+          <div class="exp-desc">
+            Leading the design and development of enterprise-scale LLM applications, integrating large language models into full-stack architectures. Driving AI-powered workflows using cloud platforms and modern ML infrastructure to deliver high-impact solutions for enterprise clients across industries.
+          </div>
+          <div class="exp-tags">
+            <span class="exp-tag">LLM Development</span>
+            <span class="exp-tag">Full Stack</span>
+            <span class="exp-tag">Azure</span>
+            <span class="exp-tag">AWS</span>
+            <span class="exp-tag">ServiceNow</span>
+            <span class="exp-tag">Python</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aditya University -->
+      <div class="exp-item fade-up">
+        <div class="exp-date">
+          Mar 21, 2023<br>— Oct 20, 2025
+        </div>
+        <div class="exp-dot"></div>
+        <div class="exp-content">
+          <div class="exp-company">Aditya University</div>
+          <div class="exp-role">AI Engineer</div>
+          <div class="exp-desc">
+            Developed and deployed AI models for university research initiatives and student-facing platforms. Led applied machine learning and deep learning projects, contributed to AI-driven research publications, and built intelligent automation pipelines. Collaborated closely with faculty and research teams to translate academic ideas into working prototypes.
+          </div>
+          <div class="exp-tags">
+            <span class="exp-tag">Machine Learning</span>
+            <span class="exp-tag">Deep Learning</span>
+            <span class="exp-tag">Python</span>
+            <span class="exp-tag">LLMs</span>
+            <span class="exp-tag">Research</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div style="max-width:1100px; margin:0 auto;">
+    <div class="section-label">03 — Skills</div>
+    <h2 class="section-heading fade-up">Technical depth, breadth, and precision.</h2>
+    <div class="skills-grid">
+
+      <div class="skill-cat">
+        <div class="skill-cat-title">AI / ML</div>
+        <div class="skill-items">
+          <div class="skill-item">
+            <span class="skill-name">Large Language Models</span>
+            <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Deep Learning</span>
+            <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Machine Learning</span>
+            <div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-cat">
+        <div class="skill-cat-title">Cloud Platforms</div>
+        <div class="skill-items">
+          <div class="skill-item">
+            <span class="skill-name">Amazon Web Services</span>
+            <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Microsoft Azure</span>
+            <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-cat">
+        <div class="skill-cat-title">Development</div>
+        <div class="skill-items">
+          <div class="skill-item">
+            <span class="skill-name">Python</span>
+            <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">ServiceNow</span>
+            <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Full Stack Dev</span>
+            <div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications" style="padding: 6rem 3rem; background: var(--paper2);">
+  <div class="certs-section" style="max-width:1100px; margin:0 auto;">
+    <div class="section-label">04 — Certifications</div>
+    <h2 class="section-heading fade-up">Validated by industry leaders.</h2>
+    <div class="certs-grid">
+
+      <div class="cert-card fade-up">
+        <div class="cert-icon aws">AWS</div>
+        <div class="cert-provider">Amazon Web Services</div>
+        <div class="cert-name">AWS AI Practitioner Certificate</div>
+        <span class="cert-badge">Cloud AI — Certified</span>
+      </div>
+
+      <div class="cert-card fade-up">
+        <div class="cert-icon oracle">OCI</div>
+        <div class="cert-provider">Oracle</div>
+        <div class="cert-name">Oracle Generative AI Engineer</div>
+        <span class="cert-badge">Gen AI — Certified</span>
+      </div>
+
+      <div class="cert-card fade-up">
+        <div class="cert-icon azure">AZ</div>
+        <div class="cert-provider">Microsoft Azure</div>
+        <div class="cert-name">Azure AI Foundations</div>
+        <span class="cert-badge">Azure AI — Certified</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-label">05 — Contact</div>
+  <h2 class="section-heading fade-up">Let's build something great.</h2>
+  <p class="contact-sub">Open to new challenges, collaborations, and conversations.</p>
+  <div class="contact-links fade-up">
+    <a href="mailto:aravindsaipappala555@gmail" class="contact-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+      Email
+    </a>
+    <a href="https://www.linkedin.com/in/aravind-pappala-160869250/" class="contact-link" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a href="https://github.com/AravindPappala555" class="contact-link" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      GitHub
+    </a>
+  </div>
+  <div class="footer-bar">
+    &copy; 2025 Aravind Pappala — AI Engineer &amp; LLM Specialist — Andhra Pradesh, India
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        if (e.target.classList.contains('skills-section') || e.target.closest('.skills-section')) {
+          document.querySelectorAll('.skill-fill').forEach(f => f.classList.add('animated'));
+        }
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  const skillsSection = document.querySelector('.skills-section');
+  if (skillsSection) {
+    const skillObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          document.querySelectorAll('.skill-fill').forEach(f => f.classList.add('animated'));
+        }
+      });
+    }, { threshold: 0.2 });
+    skillObs.observe(skillsSection);
+  }
+</script>
+</body>
+</html>
